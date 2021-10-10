@@ -8,6 +8,8 @@ import {fetchClientCredentialsToken, fetchFailure} from "../redux/actions/AuthAc
 import {connect} from "react-redux";
 import {callForClientCredentials, registerUser} from "../api/API";
 import data from "bootstrap/js/src/dom/data";
+import authReducer from "../redux/reducers/AuthReducer";
+import {registeredUsernameAction} from "../redux/actions/RegisterUserAction";
 
 const Register = (props) => {
 
@@ -44,13 +46,18 @@ const Register = (props) => {
 
     async function callRegisterApi(data) {
         try {
-            const response = await registerUser(data, props.accessTokenCC)
-            console.log(response.data);
+            // const response = await registerUser(data, props.accessTokenCC)
+            // console.log(response.data);
+            console.log(data.username)
+            props.registerUser(data.username);
+            console.log("Hello")
         }
         catch (error) {
-            props.fetchError(error.response.data.response);
-            console.log(error.response.data.response)
+            // props.fetchError(error.response.data.response);
+            // console.log(error.response.data.response)
         }
+        props.history.push('/verify-account');
+
     }
 
     const validationSchema = Yup.object({
@@ -144,14 +151,15 @@ const Register = (props) => {
 
 const mapStateToProps = state => {
     return {
-        accessTokenCC : state.tokenClientCredentials
+        accessTokenCC : state.auth.tokenClientCredentials
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         getClientCredentials : (token) => dispatch(fetchClientCredentialsToken(token)),
-        fetchError : (error) => dispatch(fetchFailure(error))
+        fetchError : (error) => dispatch(fetchFailure(error)),
+        registerUsername : (username) => dispatch(registeredUsernameAction(username))
     }
 }
 

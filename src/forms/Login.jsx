@@ -7,6 +7,8 @@ import {useFormik} from "formik";
 import Axios from "axios";
 import {fetchClientCredentialsToken, fetchFailure, fetchPasswordLoginToken} from "../redux/actions/AuthAction";
 import {connect} from "react-redux";
+import {fetchUserProfile, loginUser} from "../api/API";
+import {fetchUserProfileData} from "../redux/actions/ProfileAction";
 
 const Login = (props) => {
 
@@ -29,29 +31,23 @@ const Login = (props) => {
     }
 
     async function onCall (loginData) {
-        const params = new URLSearchParams();
-        params.append('grant_type', 'password');
-        params.append('username', loginData.username);
-        params.append('password', loginData.password);
+
         try {
-            const response =await  Axios.request(
-                {
-                    url: "/oauth/token",
-                    method: "post",
-                    baseURL: "https://truckee-dev.com",
-                    auth: {
-                        username: "Truckee-Service", // This is the client_id
-                        password: "Truckee-Service" // This is the client_secret
-                    },
-                    params
-                });
-            console.log(response.data);
+            const response =await  loginUser(loginData);
             const  response1 = {
                 accessToken : response.data.access_token,
                 refreshToken: response.data.refresh_token
             };
             props.getPassword(response1);
-            console.log(response1);
+            try {
+                const response = await fetchUserProfile(response1.accessToken);
+                props.fetchProfile(response.data.response);
+                console.log(response.data.response);
+            }
+            catch (error) {
+
+            }
+            props.history.push('/');
         }catch (error) {
             props.fetchError(error.response.data.error)
         }
@@ -108,14 +104,15 @@ const Login = (props) => {
 
 const mapStateToProps = state => {
     return {
-        isLogin : state.userLoggedIn
+        isLogin : state.auth.userLoggedIn,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         getPassword : (response) => dispatch(fetchPasswordLoginToken(response)),
-        fetchError : (error) => dispatch(fetchFailure(error))
+        fetchError : (error) => dispatch(fetchFailure(error)),
+        fetchProfile : (data) => dispatch(fetchUserProfileData(data))
     }
 }
 

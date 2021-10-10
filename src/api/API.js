@@ -21,6 +21,38 @@ Axios.defaults.baseURL = "https://truckee-dev.com";
 
 }
 
+//login api call
+export function loginUser(loginData) {
+    const params = new URLSearchParams();
+    params.append('grant_type', 'password');
+    params.append('username', loginData.username);
+    params.append('password', loginData.password);
+     return Axios.request(
+         {
+             url: "/oauth/token",
+             method: "post",
+             baseURL: "https://truckee-dev.com",
+             auth: {
+                 username: "Truckee-Service", // This is the client_id
+                 password: "Truckee-Service" // This is the client_secret
+             },
+             params
+         });
+}
+
+//call profile api
+export function fetchUserProfile (accessToken) {
+    return Axios.request(
+        {
+            url: "/user/v1/profile",
+            method: "get",
+            headers: {
+                'Authorization' : `Bearer ${accessToken}`
+            }
+        });
+
+}
+
 //verify user with token
 export function verifyUserAccount (verificationOTP, username, accessToken) {
 console.log(accessToken);

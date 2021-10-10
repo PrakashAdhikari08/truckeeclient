@@ -82,8 +82,8 @@ const Login = (props) => {
 
     return (
             <form className={"mt-5 text-center"} onSubmit={formik.handleSubmit} action={""}>
-                <h5 className={"form-label text-center"}>Enter your login Details</h5>
-                <input className={"form-input mt-2"} placeholder="enter username/email" type={"email"}
+                <h5 className={"form-label text-center"}>login Details</h5>
+                <input className={"form-input mt-2 input form-control"} placeholder="enter username/email" type={"email"}
                        id={"username"} {...formik.getFieldProps("username")} />
                 <br/>
                 {formik.touched.username && formik.errors.username ? (
@@ -91,9 +91,8 @@ const Login = (props) => {
                     <small className={"text-danger"}>{formik.errors.username}</small>
                 ) : null}
                 <br/>
-                <input className={"form-input "} placeholder="password" type={show !== true ?"password": "text"}
+                <input className={"form-input input form-control"} placeholder="password" type={show !== true ?"password": "text"}
                        id={"password"} {...formik.getFieldProps("password")} />
-                <br/>
                 {formik.touched.password && formik.errors.password ? (
                     <small className={"text-danger text-sm-center"}>{formik.errors.password}</small>) : null}
                 <br/>

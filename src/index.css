@@ -7,3 +7,14 @@
 .App {
   font-family: "Poppins", sans-serif;
 }
+form {
+  width: 40% !important;
+  margin-left: 30%;
+
+}
+
+.input {
+  border-radius: 6px;
+  outline: 1px;
+  /*border: ;*/
+}

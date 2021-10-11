@@ -3,8 +3,6 @@ import React from 'react';
 import * as Yup from "yup";
 import {useFormik} from "formik";
 import {verifyUserAccount} from "../api/API";
-import {fetchFailure, fetchPasswordLoginToken} from "../redux/actions/AuthAction";
-import {fetchUserProfileData} from "../redux/actions/ProfileAction";
 import {connect} from "react-redux";
 
 const VerifyAccount = (props) => {
@@ -14,13 +12,17 @@ const VerifyAccount = (props) => {
     }
 
     const onSubmit = async (values) => {
-        console.log(values.otp);
+            let isVerified = false;
         try {
-            const response = verifyUserAccount(values.otp, props.accessTokenCC, props.username);
-            console.log(response);
+            const response = await verifyUserAccount(values.otp, props.username, props.accessTokenCC);
+            isVerified = true;
         }
         catch (error) {
             console.log(error.response);
+        }
+
+        if(isVerified) {
+            props.history.push('/login');
         }
     }
 

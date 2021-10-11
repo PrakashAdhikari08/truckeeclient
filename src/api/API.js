@@ -55,7 +55,6 @@ export function fetchUserProfile (accessToken) {
 
 //verify user with token
 export function verifyUserAccount (verificationOTP, username, accessToken) {
-console.log(accessToken);
     return Axios.request(
             {
                 url: `/user/v1/verify/${verificationOTP}?username=${username}`,

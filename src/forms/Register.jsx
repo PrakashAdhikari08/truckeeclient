@@ -45,18 +45,19 @@ const Register = (props) => {
     }
 
     async function callRegisterApi(data) {
+        let registerSuccess = false;
         try {
-            // const response = await registerUser(data, props.accessTokenCC)
-            // console.log(response.data);
-            console.log(data.username)
-            props.registerUser(data.username);
-            console.log("Hello")
+            const response = await registerUser(data, props.accessTokenCC)
+            props.registerUsername(data.username);
+            registerSuccess = true;
         }
         catch (error) {
-            // props.fetchError(error.response.data.response);
-            // console.log(error.response.data.response)
+            props.fetchError(error.response.data.response);
+            console.log(error.response.data.response)
         }
-        props.history.push('/verify-account');
+        if(registerSuccess){
+            props.history.push('/verify-account');
+        }
 
     }
 

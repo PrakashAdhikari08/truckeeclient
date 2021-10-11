@@ -4,6 +4,7 @@ import Home from "../home/Home";
 import Login from "../forms/Login";
 import Register from "../forms/Register";
 import VerifyAccount from "../forms/VerifyAccount";
+import Profile from "../profile/Profile";
 
 
 const Routing = () => {
@@ -15,6 +16,8 @@ const Routing = () => {
                     <Route path={"/login"}    component={Login}/>
                     <Route path={"/register"}    component={Register}/>
                     <Route path={"/verify-account"}    component={VerifyAccount}/>
+                    <Route path={"/profile"}    component={Profile}/>
+
 
 
                     <Route />

@@ -13,6 +13,11 @@ form {
 
 }
 
+
+img {
+  width: 50%;
+}
+
 .input {
   border-radius: 6px;
   outline: 1px;

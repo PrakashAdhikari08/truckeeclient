@@ -10,6 +10,8 @@ import {connect} from "react-redux";
 import {fetchUserProfile, loginUser} from "../api/API";
 import {fetchUserProfileData} from "../redux/actions/ProfileAction";
 
+import {BounceLoader, BeatLoader} from "react-spinners";
+
 const Login = (props) => {
 
     const initialValues = {
@@ -26,7 +28,6 @@ const Login = (props) => {
         //make api call to login and get token
         //user details
 
-        console.log(loginData);
         await onCall(loginData);
     }
 
@@ -42,12 +43,11 @@ const Login = (props) => {
             try {
                 const response = await fetchUserProfile(response1.accessToken);
                 props.fetchProfile(response.data.response);
-                console.log(response.data.response);
             }
             catch (error) {
 
             }
-            props.history.push('/');
+            props.history.push('/profile');
         }catch (error) {
             props.fetchError(error.response.data.error)
         }
@@ -77,7 +77,10 @@ const Login = (props) => {
 
 
     return (
+        < >
+
             <form className={"mt-5 text-center"} onSubmit={formik.handleSubmit} action={""}>
+                {/*<BeatLoader loading={true} size={100} color={"orange"}/>*/}
                 <h5 className={"form-label text-center"}>login Details</h5>
                 <input className={"form-input mt-2 input form-control"} placeholder="enter username/email" type={"email"}
                        id={"username"} {...formik.getFieldProps("username")} />
@@ -98,6 +101,7 @@ const Login = (props) => {
                 <br />
                 <small><Link to={"/register"}>Click here</Link> to create new account</small>
             </form>
+        </>
     );
 
 };

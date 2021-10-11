@@ -5,16 +5,20 @@ const Profile = (props) => {
     return (
         <div className={"text-center align-items-center"}>
             <form className={"d-inline"}>
-            <h1>My Profile</h1>
-            <p>Name is {props.fullName}</p>
-            <p>{props.phoneNumber}</p>
+                <h1>My Profile</h1>
+                <p>My id is {props.id}</p>
+                <p>Name is {props.fullName}</p>
+                <p>{props.phoneNumber}</p>
+                <p>Completed : {props.isProfileCompleted ? "YES" : "NO"}</p>
+                <p>Dot num : {props.dotNumber}</p>
+                <p>Active : {props.active ? "YES" : "NO"}</p>
 
-            <p>{props.username}</p>
-                <img src={props.profileImageUrl} />
-                <br />
-                <br />
+                <p>{props.username}</p>
+                <img src={props.profileImageUrl}/>
+                <br/>
+                <br/>
 
-            <button disabled className={"btn btn-success ml-2"}>Update</button>
+                <button disabled className={"btn btn-success ml-2"}>Update</button>
             </form>
         </div>
     );
@@ -22,23 +26,21 @@ const Profile = (props) => {
 
 const mapStateToProps = state => {
     return {
-        isLogin : state.auth.userLoggedIn,
-        id : state.profile.id,
-        username : state.profile.username,
+        isLogin: state.auth.userLoggedIn,
+        id: state.profile.id,
+        username: state.profile.username,
         fullName: state.profile.fullName,
-        role : state.profile.role,
-        phoneNumber : state.profile.phoneNumber,
-        profileImageUrl : state.profile.profileImageUrl,
-        active : state.profile.active,
-        dotNumber : state.profile.dotNumber,
-        isProfileCompleted : state.profile.isProfileCompleted
+        role: state.profile.role,
+        phoneNumber: state.profile.phoneNumber,
+        profileImageUrl: state.profile.profileImageUrl,
+        active: state.profile.active,
+        dotNumber: state.profile.dotNumber,
+        isProfileCompleted: state.profile.isProfileCompleted
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-
-    }
+    return {}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

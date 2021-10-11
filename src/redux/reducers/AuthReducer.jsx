@@ -1,4 +1,4 @@
-import {FETCH_CLIENT_CREDENTIALS} from "../actions/AuthAction";
+import {FETCH_CLIENT_CREDENTIALS, LOGOUT_USER} from "../actions/AuthAction";
 import {FETCH_PASSWORD} from "../actions/AuthAction";
 import {FETCH_FAILURE} from "../actions/AuthAction";
 
@@ -35,6 +35,14 @@ const authReducer = (state = initialState, action) => {
                 error: action.payload
 
             }
+        case LOGOUT_USER :
+            return  {
+                ...state,
+                tokenPassword: "",
+                userLoggedIn: false
+            }
+
+
         default:
             return state
     }

@@ -1,6 +1,7 @@
 export const FETCH_CLIENT_CREDENTIALS = 'FETCH_CLIENT_CREDENTIALS';
 export const FETCH_PASSWORD = 'FETCH_PASSWORD';
 export const FETCH_FAILURE = 'FETCH_FAILURE';
+export const LOGOUT_USER =  "LOGOUT_USER";
 
 //actions
 export const fetchClientCredentialsToken = (token) => {
@@ -26,3 +27,8 @@ export const fetchFailure = (error) => {
 //reducer
 
 };
+export const logoutUser = () => {
+    return {
+        type : LOGOUT_USER
+    }
+}

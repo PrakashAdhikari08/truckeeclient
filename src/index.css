@@ -5,7 +5,10 @@
 }
 
 .App {
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif !important;
+  align-items: center;
+  text-align: center;
+
 }
 form {
   width: 40% !important;

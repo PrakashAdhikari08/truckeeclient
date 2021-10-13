@@ -18,8 +18,8 @@ jobs:
         node-version: '13.10'
     - name: Install yarn and run unittest
       run: |
-        yarn
-        yarn test
+        npm
+        npm test
         
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1

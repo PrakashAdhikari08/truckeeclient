@@ -7,7 +7,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     environment: dev
     steps:
@@ -17,8 +16,9 @@ jobs:
       with:
         node-version: '13.10'
     - name: Install yarn and run unittest
+      working-directory: ./app
       run: |
-        npm ci
+        npm
         
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1

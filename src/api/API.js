@@ -31,7 +31,6 @@ export function loginUser(loginData) {
          {
              url: "/oauth/token",
              method: "post",
-             baseURL: "https://truckee-dev.com",
              auth: {
                  username: "Truckee-Service", // This is the client_id
                  password: "Truckee-Service" // This is the client_secret
@@ -65,9 +64,32 @@ export function verifyUserAccount (verificationOTP, username, accessToken) {
             });
 }
 
-//verify user with token
+//get token on email for reset password
+export function forgetPasswordAPI (username, accessTokenCC) {
+    return Axios.request(
+        {
+            url: `/user/v1/forgot-password?username=${username}`,
+            method: "get",
+            headers: {
+                'Authorization' : `Bearer ${accessTokenCC}`
+            }
+        });
+}
+
+//reset password
+export function resetPasswordAPI (resetToken, password, accessTokenCC) {
+    return Axios.request(
+        {
+            url: `/user/v1/reset-password/${resetToken}?password=${password}`,
+            method: "get",
+            headers: {
+                'Authorization' : `Bearer ${accessTokenCC}`
+            }
+        });
+}
+
+//register user
 export function registerUser (data, accessToken) {
-    console.log(data);
     return Axios.request(
         {
             url: '/user/v1/register',

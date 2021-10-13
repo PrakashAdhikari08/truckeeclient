@@ -4,15 +4,21 @@ import {Link} from "react-router-dom";
 
 import * as Yup from "yup";
 import {useFormik} from "formik";
-import Axios from "axios";
-import {fetchClientCredentialsToken, fetchFailure, fetchPasswordLoginToken} from "../redux/actions/AuthAction";
+import { fetchFailure, fetchPasswordLoginToken} from "../redux/actions/AuthAction";
 import {connect} from "react-redux";
 import {fetchUserProfile, loginUser} from "../api/API";
 import {fetchUserProfileData} from "../redux/actions/ProfileAction";
 
-import {BounceLoader, BeatLoader} from "react-spinners";
+import { BeatLoader} from "react-spinners";
 
+import {toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
+import Header from "../navbar/Header";
+
+toast.configure();
 const Login = (props) => {
+
+
 
     const initialValues = {
         username: "",
@@ -54,14 +60,24 @@ const Login = (props) => {
                 setLoading(false);
                 if(error.response.status === 400) {
                     console.log(error.response.data.error_description)
+                    toast.warning(
+                        <>
+                            <div>
+                                <h5>BAD CREDENTIAL</h5>
+                                <p>Please check your username and password</p>
+                            </div>
+                    </>,
+                        {position : "top-center", type : "warning"});
                 }
                 if(error.response.status > 400){
-                    console.log("SOMETHING WENT WRONG");
+                    console.log("SOMETHING WENT WRONG ");
+                    toast.error('SOMETHING WENT WRONG \n Please contact the support team.', {position : "top-center", type : "error"});
                 }
             });
         if(loginSuccessful){
 
             await fetchUserProfileApiCall(accessToken);
+            toast.success(`Welcome ${props.fullName}`, {position : "top-right", autoClose : 2000})
             props.history.push('/profile');
         }
     }
@@ -125,8 +141,12 @@ const Login = (props) => {
                     {formik.touched.password && formik.errors.password ? (
                         <small className={"text-danger text-sm-center"}>{formik.errors.password}</small>) : null}
                     <br/>
-                    <p onClick={() => setShow(!show)}
-                       className={"text-primary text-decoration-underline"}>{!show ? "show password" : "hide password"}</p>
+                    {/*<p onClick={() => setShow(!show)}*/}
+                    {/*   className={"text-primary text-decoration-underline"}>{!show ? "show password" : "hide password"}</p>*/}
+                    <Link to={"/forget-password"}>
+                        <small className={"align-content-end text-decoration-underline"}>forgot password?</small>
+                    </Link>
+                    <br />
                     <button className={"btn btn-success m-1"} type={"submit"}>login</button>
                     <Link to={"/"}>
                         <button className={"btn btn-danger m-1"}>Cancel</button>
@@ -142,6 +162,7 @@ const Login = (props) => {
 const mapStateToProps = state => {
     return {
         isLogin: state.auth.userLoggedIn,
+        fullName: state.profile.fullName
     }
 }
 

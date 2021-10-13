@@ -6,6 +6,18 @@ import {connect} from "react-redux";
 
 const Header = (props) => {
 
+    // useEffect(
+    //     async () => {
+    //         try {
+    //             const response = await callForClientCredentials();
+    //             props.getClientCredentials(response.data.access_token);
+    //         }catch (error) {
+    //             props.fetchError(error.response.data.error)
+    //         }
+    //
+    //     },[]
+    // );
+
     return (
         // <!-- Grey with black text -->
         <nav className="navbar navbar-expand-sm bg-dark navbar-dark">

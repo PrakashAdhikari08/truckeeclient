@@ -4,12 +4,13 @@ import {Link} from "react-router-dom";
 
 import * as Yup from "yup";
 import {useFormik} from "formik";
-import {fetchClientCredentialsToken, fetchFailure} from "../redux/actions/AuthAction";
 import {connect} from "react-redux";
-import {callForClientCredentials, registerUser} from "../api/API";
-import data from "bootstrap/js/src/dom/data";
-import authReducer from "../redux/reducers/AuthReducer";
 import {registeredUsernameAction} from "../redux/actions/RegisterUserAction";
+import {registerUser} from "../api/API";
+
+import {toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
+import {errorNotification, successNotification} from "../NotificationToast";
 
 const Register = (props) => {
 
@@ -20,17 +21,6 @@ const Register = (props) => {
         userType: ""
     }
 
-    useEffect(
-        async () => {
-                try {
-                    const response = await callForClientCredentials();
-                    props.getClientCredentials(response.data.access_token);
-                }catch (error) {
-                    props.fetchError(error.response.data.error)
-                }
-
-        },[]
-    );
 
     const onSubmit = async (values) => {
         const data = {
@@ -40,22 +30,23 @@ const Register = (props) => {
             role: values.userType
 
         };
-        console.log(data)
         await callRegisterApi(data);
     }
 
     async function callRegisterApi(data) {
         let registerSuccess = false;
         try {
-            const response = await registerUser(data, props.accessTokenCC)
+            await registerUser(data, props.accessTokenCC)
             props.registerUsername(data.username);
             registerSuccess = true;
         }
         catch (error) {
-            props.fetchError(error.response.data.response);
-            console.log(error.response.data.response)
+            console.log(error.response.data.response);
+            errorNotification(error.response.data.response);
+
         }
         if(registerSuccess){
+           successNotification();
             props.history.push('/verify-account');
         }
 
@@ -158,8 +149,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getClientCredentials : (token) => dispatch(fetchClientCredentialsToken(token)),
-        fetchError : (error) => dispatch(fetchFailure(error)),
         registerUsername : (username) => dispatch(registeredUsernameAction(username))
     }
 }

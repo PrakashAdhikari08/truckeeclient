@@ -15,10 +15,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '13.10'
-    - name: Install yarn and run unittest
-      working-directory: ./app
-      run: |
-        npm
+#     - name: Install yarn and run unittest
+#       working-directory: ./app
+#       run: |
+#         npm
         
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1

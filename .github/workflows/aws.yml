@@ -18,7 +18,7 @@ jobs:
         node-version: '13.10'
     - name: Install yarn and run unittest
       run: |
-        npm
+        npm ci
         
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -40,6 +40,6 @@ jobs:
       run: |
         # Build a docker container and
         # push it to ECR 
-        docker build -f Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . --f Dockerfile
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"

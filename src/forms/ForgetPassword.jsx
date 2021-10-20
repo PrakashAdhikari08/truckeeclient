@@ -49,18 +49,23 @@ const ForgetPassword = (props) => {
     });
 
     return (
-        <form className={"mt-5 text-center"} onSubmit={formik.handleSubmit}>
-            <h4>FORGET PASSWORD</h4>
-            <input type={"email"} className={"input form-control"}
-                   placeholder={"Enter your username/email"}
-                   id={"emailAddress"} {...formik.getFieldProps("emailAddress")} />
-            {formik.touched.emailAddress && formik.errors.emailAddress ? (
+        <div className={"col-12"}>
+                <form className={" container mt-5 text-center"} onSubmit={formik.handleSubmit}>
+                    <h4>FORGET PASSWORD</h4>
+                    <input type={"email"} className={"input form-control"}
+                           placeholder={"Enter your username/email"}
+                           id={"emailAddress"} {...formik.getFieldProps("emailAddress")} />
+                    {formik.touched.emailAddress && formik.errors.emailAddress ? (
 
-                <small className={"text-danger"}>{formik.errors.emailAddress}</small>
-            ) : null}
-            <br />
-            <button className={"mt-2 form-control btn-success"} type={"submit"}>Generate Reset Token</button>
-        </form>
+                        <small className={"text-danger"}>{formik.errors.emailAddress}</small>
+                    ) : null}
+                    <br />
+                    <button className={"mt-2 form-control btn-success"} type={"submit"}>Generate Reset Token</button>
+                </form>
+
+
+        </div>
+
     );
 };
 

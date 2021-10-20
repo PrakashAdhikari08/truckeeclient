@@ -10,10 +10,35 @@
   text-align: center;
 
 }
+p, h, a {
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 1px;
+}
 form {
   width: 40% !important;
   margin-left: 30%;
+  font-family: "Poppins", sans-serif;
+  box-shadow: 0 2.5px 2.5px -3px rgba(0, 0, 0, 0.043),
+  0 5.9px 5.8px -3px rgba(0, 0, 0, 0.056),
+  0 10.5px 10.4px -3px rgba(0, 0, 0, 0.066),
+  0 17.5px 17.2px -3px rgba(0, 0, 0, 0.079),
+  0 28.8px 28.3px -3px rgba(0, 0, 0, 0.099),
+  0 50.4px 49.5px -3px rgba(0, 0, 0, 0.131),
+  0 109px 107px -3px rgba(0, 0, 0, 0.18);
+  background-color: #eef2f7;
+  border-radius: 7px;
+  /*padding-bottom: 2vh;*/
+  /*padding-top: 2vh;*/
+  padding: 2vh;
 
+}
+
+@media screen and (max-width: 786px) {
+  form {
+    width: 100% !important;
+    margin-left: 0%;
+
+  }
 }
 
 

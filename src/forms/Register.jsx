@@ -39,14 +39,13 @@ const Register = (props) => {
             await registerUser(data, props.accessTokenCC)
             props.registerUsername(data.username);
             registerSuccess = true;
-        }
-        catch (error) {
+        } catch (error) {
             console.log(error.response.data.response);
             errorNotification(error.response.data.response);
 
         }
-        if(registerSuccess){
-           successNotification();
+        if (registerSuccess) {
+            successNotification();
             props.history.push('/verify-account');
         }
 
@@ -78,10 +77,11 @@ const Register = (props) => {
     });
 
     return (
-            <form className={" mt-5 text-center "} onSubmit={formik.handleSubmit} action={""}>
+        <div className={"col-12"}>
+            <form className={"container-sm mt-5 text-center "} onSubmit={formik.handleSubmit} action={""}>
                 <h4>Register User</h4>
 
-                <input type={"email "} placeholder={"enter a valid email address"} className={"m-1 input form-control" }
+                <input type={"email "} placeholder={"enter a valid email address"} className={"m-1 input form-control"}
                        id={"emailAddress"} {...formik.getFieldProps("emailAddress")}/>
                 <br/>
                 {formik.touched.emailAddress && formik.errors.emailAddress ? (
@@ -104,7 +104,8 @@ const Register = (props) => {
                 <br/>
                 {formik.touched.password && formik.errors.password ? (
                     <small className={"text-danger text-sm-center"}>{formik.errors.password}</small>) : null}
-                <input type={"password"} placeholder={"re-enter password"} id={"password1"} className={"m-1 input form-control"}
+                <input type={"password"} placeholder={"re-enter password"} id={"password1"}
+                       className={"m-1 input form-control"}
                        autoComplete="off" {...formik.getFieldProps("password1")}/>
                 <br/>
                 {(formik.touched.password1 && formik.errors.password1) ||
@@ -134,23 +135,27 @@ const Register = (props) => {
                 <Link to={"/"}>
                     <button className={"btn-sm btn-danger m-1"}>Cancel</button>
                 </Link>
+                <br />
+                <br />
+                <small >Already registered. <Link to={'/login'}>Click to Login</Link></small>
 
             </form>
+        </div>
 
-    );
+            );
 
-};
+            }
 
-const mapStateToProps = state => {
-    return {
-        accessTokenCC : state.auth.tokenClientCredentials
-    }
-}
+            const mapStateToProps = state => {
+            return {
+            accessTokenCC : state.auth.tokenClientCredentials
+        }
+        }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        registerUsername : (username) => dispatch(registeredUsernameAction(username))
-    }
-}
+            const mapDispatchToProps = (dispatch) => {
+            return {
+            registerUsername : (username) => dispatch(registeredUsernameAction(username))
+        }
+        }
 
-export default connect(mapStateToProps, mapDispatchToProps) (Register);
+            export default connect(mapStateToProps, mapDispatchToProps) (Register);
